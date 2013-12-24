@@ -86,8 +86,7 @@ end
 require 'imageinspector'
 
 module PDFBeads
-  VERSION = '1.0'
+  require 'pdfbeads/version'
   require 'pdfbeads/pdfbuilder'
   require 'pdfbeads/pdfpage'
 end
-
