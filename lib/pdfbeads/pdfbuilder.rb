@@ -546,6 +546,12 @@ class PDFBeads::PDFBuilder
     end
 
     units[units.length-1][0].sub!( /-\Z/, "\xC2\xAD" ) unless units.length == 0
+
+    # Ignore tesseract's faulty hocr output. Stolen from
+    # https://github.com/steelThread/mimeograph/commits/master/src/patched_pdfbeads.rb
+    #
+    units.delete_if {|unit| "".eql? unit[0] }
+
     return units
   end
 
