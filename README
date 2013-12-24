@@ -1,0 +1,58 @@
+PDFBeads -- convert scanned images to a single PDF file
+Version 1.0 (November 2010)
+
+Copyright (C) 2010 Alexey Kryukov (amkryukov@gmail.com).
+All rights reserved.
+
+PDFBeads is a small utility written in Ruby which takes scanned
+page images and converts them into a single PDF file. Unlike other
+PDF creation tools, PDFBeads attempts to implement the approach
+typically used for DjVu books. Its key feature is separating scanned
+text (typically black, but indexed images with a small number of
+colors are also accepted) from halftone pictures. Each type of
+graphical data is encoded into its own layer with a specific
+compression method and resolution.
+
+The name `PDFBeads' has been selected for the package because
+building PDF files from separate image is comparable to threading
+beads on a string. It also seems to be a good choice for a Ruby
+application.
+
+Here's a few operations you can perform with PDFBeads:
+
+* encode B&W images using either CCITT Group 4 Fax or JBIG2
+  compression method (you'll need Adam Langley's jbig2 utility,
+  available at https://github.com/agl/jbig2enc/ , for JBIG2
+  compression);
+
+* combine halftone or indexed pictures with previously binarized
+  text pages, placing them into the background layer. Various
+  compression methods of background images (JPEG2000, JPEG or
+  PNG-styled deflate compression) are supported;
+
+* split mixed images where binarized text is combined with color
+  or grayscale pictures (such pages may be produced with ScanTailor --
+  an interactive post-processing tool for scanned page, available
+  at http://scantailor.sourceforge.net) and encode each layer
+  separately;
+
+* correctly process indexed images with a limited number of colors,
+  encoding each color separately into the foreground layer;
+
+* split color images into background and foreground layers (similar
+  to BG44 and FG44 chunks in a DjVu file) according to a given mask;
+
+* create PDF files with TOC and metadata;
+
+* read text from hOCR files and create a hidden text layer in the PDF
+  file.
+
+Note that PDFBeads is intended for creating PDF files from previously
+processed images, and so it can't done some operations (e. g. converting
+color or grayscale scans to B&W) which should be typically performed with
+a special scan processing application, such as ScanTailor.
+
+PDFBeads requires RMagick (the Ruby bindings for the popular Magick++ image
+processing library). The hpricot extension is not required, but highly
+recommended, as without it PDFBeads would not be able to read data from hOCR
+files.

@@ -1,0 +1,57 @@
+2010 November 7 (Alexey Kryukov) Version 1.0.0
+
+    * Initial release
+
+2010 November 12 (Alexey Kryukov) Version 1.0.1
+
+    * JBIG2 support didn't work properly under MS Windows.
+
+2010 November 15 (Alexey Kryukov) Version 1.0.3
+
+    + Make it possible to specify binarization threshold for mixed scans
+      (it is still not recommended to perform segmentation with pdfbeads,
+      unless the image has been previously processed with ScanTailor, so
+      the normal value for this parameter is 1).
+
+    * If a multipage TIFF file is passed to pdfbeads, warn user that
+      only the first image will be processed.
+
+    * TIFF files with an embedded EXIF block were incorrectly processed
+      by ImageInspector.
+
+2012 February 4 (Alexey Kryukov) Version 1.0.5
+
+    * If JPEG2000 compression was requested but not available,
+      JPEG files were still written with the 'JP2' extension.
+
+    * Some tweaks to minimize the effect of page labels being inconsistently handled
+      in various PDF viewers (prefer ISO-8859-1 strings if possible).
+
+2012 February 5 (Alexey Kryukov) Version 1.0.6
+
+    + Add Greek letters (the monotonic set) to the list of characters with hardcoded
+      glyph names and width.
+
+    * Minor bugs fixed.
+
+2012 February 10 (Alexey Kryukov) Version 1.0.7
+
+    + An attempt to achive better positioning of the hidden text layer, taking into
+      account not just lines, but also individual words. This should work with hOCR
+      files produced with Cuneiform or Tesseract.
+
+2012 March 5 (Alexey Kryukov) Version 1.0.8
+
+    * Palette colors in PNG images were treated as signed chars and this could cause
+      indexed images to be incorrecty displayed in the resulting PDF.
+
+2012 April 22 (Alexey Kryukov) Version 1.0.9
+
+    + Add an option allowing to delete image files produced as an intermediate stage
+      during the PDF creation process.
+
+    * Processing indexed images with a small number of colors was broken.
+
+    * Don't attempt to use 'ocrx_word' elements which contain no bounding box
+      data (this should fix the problem with the hOCR output produced by some
+      tesseract versions).
