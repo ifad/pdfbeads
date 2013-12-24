@@ -26,12 +26,12 @@ Gem::Specification.new do |s|
 
   s.executables << 'pdfbeads'
 
-  s.add_runtime_dependency('iconv')
   s.add_runtime_dependency('hpricot')
 
   if RUBY_PLATFORM == 'java'
     s.add_runtime_dependency('rmagick4j')
   else
+    s.add_runtime_dependency('iconv')
     s.add_runtime_dependency('rmagick')
   end
 
