@@ -27,13 +27,8 @@ Gem::Specification.new do |s|
   s.executables << 'pdfbeads'
 
   s.add_runtime_dependency('nokogiri')
-
-  if RUBY_PLATFORM == 'java'
-    s.add_runtime_dependency('rmagick4j')
-  else
-    s.add_runtime_dependency('iconv')
-    s.add_runtime_dependency('rmagick')
-  end
+  s.add_runtime_dependency('iconv')
+  s.add_runtime_dependency('rmagick')
 
   s.extra_rdoc_files = %w( README COPYING ChangeLog )
 
