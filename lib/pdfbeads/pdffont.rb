@@ -9,7 +9,7 @@
 # Unlike other PDF creation tools, this utility attempts to implement
 # the approach typically used for DjVu books. Its key feature is
 # separating scanned text (typically black, but indexed images with
-# a small number of colors are also accepted) from halftone images 
+# a small number of colors are also accepted) from halftone images
 # placed into a background layer.
 #
 # Copyright (C) 2010 Alexey Kryukov (amkryukov@gmail.com).
@@ -38,7 +38,7 @@
 # and individual characters) are hardcoded and correspond to those of
 # Times New Roman. The reason is that we need this font just for a hidden
 # text layer, so visual appearance doesn't matter.
-# 
+#
 class PDFBeads::PDFBuilder::FontDataProvider
   # Access a hardcoded set of standard font properties (Ascent, Descent, etc.)
   attr_reader :header

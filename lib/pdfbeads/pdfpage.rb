@@ -8,7 +8,7 @@
 # Unlike other PDF creation tools, this utility attempts to implement
 # the approach typically used for DjVu books. Its key feature is
 # separating scanned text (typically black, but indexed images with
-# a small number of colors are also accepted) from halftone images 
+# a small number of colors are also accepted) from halftone images
 # placed into a background layer.
 #
 # Copyright (C) 2010 Alexey Kryukov (amkryukov@gmail.com).
@@ -96,7 +96,7 @@ class PDFBeads::PageDataProvider < Array
 
       $stderr.puts( "Prepared data for processing #{@name}\n" )
       if insp.nextImage
-        $stderr.puts( "Warning: #{@name} contains multiple images, but only the first one") 
+        $stderr.puts( "Warning: #{@name} contains multiple images, but only the first one")
         $stderr.puts( "\tis going to be used\n" )
       end
       ret
@@ -469,7 +469,7 @@ class PDFBeads::PageDataProvider < Array
       end
 
       if pidx == per_dict or i == length - 1
-        # The jbig2 encoder processes a bunch of files at once, producing 
+        # The jbig2 encoder processes a bunch of files at once, producing
         # pages which depend from a shared dictionary. Thus we can skip this
         # stage only if both the dictionary and each of the individual pages
         # are already found on the disk

@@ -8,7 +8,7 @@
 # Unlike other PDF creation tools, this utility attempts to implement
 # the approach typically used for DjVu books. Its key feature is
 # separating scanned text (typically black, but indexed images with
-# a small number of colors are also accepted) from halftone images 
+# a small number of colors are also accepted) from halftone images
 # placed into a background layer.
 #
 # Copyright (C) 2010 Alexey Kryukov (amkryukov@gmail.com).
@@ -57,7 +57,7 @@
 #
 # For example if a book starts from two unnumbered title pages, followed
 # by 16 pages numbered with Roman digits, and then goes the Arabic numeration,
-# which however starts from 17, then the following label specification 
+# which however starts from 17, then the following label specification
 # string would be appropriate:
 # +"0:Title %D;2:%R;18:%16D"+
 
@@ -100,7 +100,7 @@ class PDFBeads::PDFBuilder::PDFLabels < Array
   private
 
   def int2roman( num )
-    numerals = Hash[  
+    numerals = Hash[
       1   => "I",  4  => "IV",   5 => "V", 9   => "IX",
       10  => "X", 40  => "XL",  50 => "L", 90  => "XC",
       100 => "C", 400 => "CD", 500 => "D", 900 => "CM", 1000 => "M"

@@ -9,7 +9,7 @@
 # Unlike other PDF creation tools, this utility attempts to implement
 # the approach typically used for DjVu books. Its key feature is
 # separating scanned text (typically black, but indexed images with
-# a small number of colors are also accepted) from halftone images 
+# a small number of colors are also accepted) from halftone images
 # placed into a background layer.
 #
 # Copyright (C) 2010 Alexey Kryukov (amkryukov@gmail.com).
@@ -132,7 +132,7 @@ class PDFBeads::PDFBuilder
       'Intent' => '[/View/Design]'
     })
     @doc.addObject(ocBack)
-    cat.addToDict('OCProperties', 
+    cat.addToDict('OCProperties',
       sprintf("<< /OCGs[%s %s] /D<< /Intent /View /BaseState (ON) /Order[%s %s] >>>>",
         ref(ocFore.getID), ref(ocBack.getID), ref(ocFore.getID), ref(ocBack.getID)))
 
@@ -151,7 +151,7 @@ class PDFBeads::PDFBuilder
             # If possible, use iso8859-1 (aka PDFDocEncoding) for page labels:
             # it is at least guaranteed to be safe
             ltitl = Iconv.iconv( "iso8859-1", "utf-8", rng[:prefix] ).first
-            nTree << "/P (#{ltitl.to_text}) " 
+            nTree << "/P (#{ltitl.to_text}) "
           rescue Iconv::InvalidCharacter, Iconv::IllegalSequence
             ltitl = Iconv.iconv( "utf-16be", "utf-8", rng[:prefix] ).first
             # If there is no number (just prefix) then put a zero character after the prefix:
@@ -491,7 +491,7 @@ class PDFBeads::PDFBuilder
         units << [txt,bbox]
       end
 
-    # If 'ocrx_cinfo' data is available (as in Cuneiform) owtput, then split it 
+    # If 'ocrx_cinfo' data is available (as in Cuneiform) owtput, then split it
     # into individual characters and then combine them into words
     elsif not ocr_chars.nil? and ocr_chars.attributes.has_key? 'title'
       if /x_bboxes([-\s\d]+)/.match( ocr_chars.attributes['title'].value )
