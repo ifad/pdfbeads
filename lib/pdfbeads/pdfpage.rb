@@ -253,8 +253,8 @@ class PDFBeads::PageDataProvider < Array
 
         # A hack for some Windows versions of RMagick, which throw an error the
         # first time when Magick.formats is accessed
+        retries = 2
         begin
-          retries = 2
           mfmts = Magick.formats
         rescue
           retry if (retries -= 1 ) > 0
@@ -401,8 +401,8 @@ class PDFBeads::PageDataProvider < Array
 
     # A hack for some Windows versions of RMagick, which throw an error the
     # first time when Magick.formats is accessed
+    retries = 2
     begin
-      retries = 2
       mfmts = Magick.formats
     rescue
       retry if (retries -= 1 ) > 0
