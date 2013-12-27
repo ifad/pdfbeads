@@ -32,6 +32,7 @@
 
 require 'iconv'
 require 'zlib'
+require 'nokogiri'
 
 require 'RMagick'
 include Magick

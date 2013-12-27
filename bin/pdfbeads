@@ -32,7 +32,6 @@
 #######################################################################
 
 require 'optparse'
-require 'iconv'
 require 'time'
 
 require 'pdfbeads'
