@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
 
   s.executables << 'pdfbeads'
 
-  s.add_runtime_dependency('hpricot')
+  s.add_runtime_dependency('nokogiri')
 
   if RUBY_PLATFORM == 'java'
     s.add_runtime_dependency('rmagick4j')

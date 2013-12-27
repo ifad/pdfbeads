@@ -36,15 +36,6 @@ require 'zlib'
 require 'RMagick'
 include Magick
 
-begin
-  require 'hpricot'
-  $has_hpricot = true
-rescue LoadError
-  $stderr.puts( "Warning: the hpricot extension is not available. I'll not be able" )
-  $stderr.puts( "\tto create hidden text layer from hOCR files." )
-  $has_hpricot = false
-end
-
 unless ''.respond_to? :ord
   $KCODE = 'u'
   require 'jcode'

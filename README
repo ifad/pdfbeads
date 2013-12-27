@@ -53,6 +53,4 @@ color or grayscale scans to B&W) which should be typically performed with
 a special scan processing application, such as ScanTailor.
 
 PDFBeads requires RMagick (the Ruby bindings for the popular Magick++ image
-processing library). The hpricot extension is not required, but highly
-recommended, as without it PDFBeads would not be able to read data from hOCR
-files.
+processing library) and Nokogiri to read data from hOCR files.

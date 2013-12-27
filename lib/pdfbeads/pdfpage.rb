@@ -139,10 +139,8 @@ class PDFBeads::PageDataProvider < Array
         @fg_layer = fgpath unless fgpath.nil?
       end
 
-      if $has_hpricot
-        @hocr_path = Dir.entries('.').detect do |f|
-          /\A#{@basename}.(HOCR|HTML?)/i.match(f)
-        end
+      @hocr_path = Dir.entries('.').detect do |f|
+        /\A#{@basename}.(HOCR|HTML?)/i.match(f)
       end
     end
 

@@ -33,6 +33,7 @@
 
 require 'time'
 require 'stringio'
+require 'nokogiri'
 
 # The key class where the actual generation of a PDF file is performed.
 class PDFBeads::PDFBuilder
@@ -262,7 +263,7 @@ class PDFBeads::PDFBuilder
 
       hocr = nil
       unless p.hocr_path.nil?
-        hocr = open( p.hocr_path ) { |f| Hpricot.parse( f ) }
+        hocr = open( p.hocr_path ) { |f| Nokogiri.parse( f ) }
         procSet << '/Text'
         c_str   << getPDFText( hocr,pheight,72.0/xres,72.0/yres,encodings )
       end
@@ -453,8 +454,8 @@ class PDFBeads::PDFBuilder
   def elementCoordinates( element,xscale,yscale )
     out = [0,0,0,0]
 
-    if element.attributes.to_hash.has_key? 'title'
-      if /bbox((\s+\d+){4})/.match(element.attributes.to_hash['title'])
+    if element.attributes.has_key? 'title'
+      if /bbox((?:\s+\d+){4})/.match(element.attributes['title'].value)
         coords = $1.strip.split(/\s+/)
         out = [ (coords[0].to_i*xscale).to_f,(coords[1].to_i*xscale).to_f,
                 (coords[2].to_i*yscale).to_f,(coords[3].to_i*yscale).to_f ]
@@ -466,7 +467,7 @@ class PDFBeads::PDFBuilder
   def elementText( elem,charset )
     txt = ''
     begin
-      txt = elem.to_plain_text.strip
+      txt = elem.text.strip
       txt = Iconv.iconv( 'utf-8',charset,txt ).first unless charset.downcase.eql? 'utf-8'
     rescue
     end
@@ -477,9 +478,9 @@ class PDFBeads::PDFBuilder
 
   def getOCRUnits( ocr_line,lbbox,fsize,charset,xscale,yscale )
     units = Array.new()
-    ocr_words = ocr_line.search("//span[@class='ocrx_word']")
+    ocr_words = ocr_line.search("span[@class='ocrx_word']")
     ocr_chars = nil
-    ocr_chars = ocr_line.at("//span[@class='ocr_cinfo']") if ocr_words.length == 0
+    ocr_chars = ocr_line.at("span[@class='ocr_cinfo']") if ocr_words.length == 0
 
     # If 'ocrx_word' elements are available (as in Tesseract owtput), split the line
     # into individual words
@@ -493,8 +494,8 @@ class PDFBeads::PDFBuilder
 
     # If 'ocrx_cinfo' data is available (as in Cuneiform) owtput, then split it 
     # into individual characters and then combine them into words
-    elsif not ocr_chars.nil? and ocr_chars.attributes.to_hash.has_key? 'title'
-      if /x_bboxes([-\s\d]+)/.match( ocr_chars.attributes.to_hash['title'] )
+    elsif not ocr_chars.nil? and ocr_chars.attributes.has_key? 'title'
+      if /x_bboxes([-\s\d]+)/.match( ocr_chars.attributes['title'].value )
         coords = $1.strip.split(/\s+/)
         ltxt = elementText( ocr_line,charset )
         charcnt = 0
@@ -562,9 +563,9 @@ class PDFBeads::PDFBuilder
 
     charset = 'utf-8'
     hocr.search("//meta[@http-equiv='Content-Type']").each do |el|
-      attrs = el.attributes.to_hash
+      attrs = el.attributes
       charset = $1 if attrs.has_key? 'content' and
-        /\Atext\/html;charset=([A-Za-z0-9-]+)\Z/i.match( attrs['content'] )
+        /\Atext\/html;\s*charset=([A-Za-z0-9-]+)\Z/i.match( attrs['content'].value )
     end
 
     hocr.search("//span[@class='ocr_line']").each do |line|
